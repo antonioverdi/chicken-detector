@@ -17,5 +17,11 @@
 ## Quick Start
 
 ## References and Resources
+Here I will be listing the resources used when building the project, whether they be online tutorials, articles, or codebases from github.
+
+**Eric Escobar's Automated Chicken Door** (https://github.com/ericescobar/Chicken_Door)
+
+- Hardware, schematics, general inspiration
+
 
 ## Copyright and License
