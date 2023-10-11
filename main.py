@@ -12,10 +12,6 @@ torch.backends.quantized.engine = 'qnnpack'
 
 cam = cv2.VideoCapture(0)
 
-cam.set(cv2.CAP_PROP_FRAME_WIDTH, 224)
-cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 224)
-cam.set(cv2.CAP_PROP_FPS, 36)
-
 preprocess = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
@@ -48,7 +44,7 @@ with torch.no_grad():
         output = net(input_batch)
         # do something with output ...
         top = list(enumerate(output[0].softmax(dim=0)))
-        top.sort(key=lambda x: x[1], reverse=True)
+        top.sort(key=lambda x: x[1], reverse=False)
         for idx, val in top[:10]:
             print(f"{val.item()*100:.2f}% {classes[idx]}")
 
