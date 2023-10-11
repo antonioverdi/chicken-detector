@@ -12,6 +12,7 @@ print("Imports Done")
 torch.backends.quantized.engine = 'qnnpack'
 
 cam = cv2.VideoCapture(0)
+print("cam initialized")
 
 preprocess = transforms.Compose([
     transforms.ToTensor(),
@@ -20,7 +21,7 @@ preprocess = transforms.Compose([
 
 net = models.quantization.mobilenet_v2(weights=MobileNet_V2_QuantizedWeights.IMAGENET1K_QNNPACK_V1, quantize=True)
 
-print("Cam and Model initialized")
+print("Model initialized")
 
 with torch.no_grad():
     while True:
