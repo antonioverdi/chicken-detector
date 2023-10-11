@@ -8,11 +8,9 @@ from torchvision.models.quantization import MobileNet_V2_QuantizedWeights
 import cv2
 from PIL import Image
 
-print("Imports Done")
 torch.backends.quantized.engine = 'qnnpack'
 
 cam = cv2.VideoCapture(0)
-print("cam initialized")
 
 preprocess = transforms.Compose([
     transforms.ToTensor(),
@@ -21,11 +19,8 @@ preprocess = transforms.Compose([
 
 net = models.quantization.mobilenet_v2(weights=MobileNet_V2_QuantizedWeights.IMAGENET1K_QNNPACK_V1, quantize=True)
 
-print("Model initialized")
-
 with torch.no_grad():
     while True:
-        print("Entering True Loop")
         # read frame
         ret, image = cam.read()
         if not ret:
@@ -44,6 +39,10 @@ with torch.no_grad():
         # run model
         output = net(input_batch)
         # do something with output ...
+        top = list(enumerate(output[0].softmax(dim=0)))
+        top.sort(key=lambda x: x[1], reverse=True)
+        for idx, val in top[:10]:
+            print(f"{val.item()*100:.2f}% {classes[idx]}")
 
         # Display the resulting frame
         cv2.imshow('Video Test', image)
