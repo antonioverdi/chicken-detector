@@ -12,6 +12,10 @@ torch.backends.quantized.engine = 'qnnpack'
 
 cam = cv2.VideoCapture(0)
 
+cam.set(cv2.CAP_PROP_FRAME_WIDTH, 224)
+cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 224)
+cam.set(cv2.CAP_PROP_FPS, 36)
+
 preprocess = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
@@ -21,6 +25,7 @@ with open("imagenet_classes.txt", "r") as f:
     classes = [s.strip() for s in f.readlines()]
 
 net = models.quantization.mobilenet_v2(weights=MobileNet_V2_QuantizedWeights.IMAGENET1K_QNNPACK_V1, quantize=True)
+net = torch.jit.script(net)
 
 with torch.no_grad():
     while True:
