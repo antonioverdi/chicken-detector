@@ -10,7 +10,7 @@ from PIL import Image
 
 torch.backends.quantized.engine = 'qnnpack'
 
-cap = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(0)
 
 preprocess = transforms.Compose([
     transforms.ToTensor(),
@@ -21,14 +21,10 @@ net = models.quantization.mobilenet_v2(weights=MobileNet_V2_QuantizedWeights.IMA
 # jit model to take it from ~20fps to ~30fps
 net = torch.jit.script(net)
 
-started = time.time()
-last_logged = time.time()
-frame_count = 0
-
 with torch.no_grad():
     while True:
         # read frame
-        ret, image = cap.read()
+        ret, image = cam.read()
         if not ret:
             raise RuntimeError("failed to read frame")
 
@@ -46,10 +42,15 @@ with torch.no_grad():
         output = net(input_batch)
         # do something with output ...
 
-        # log model performance
-        frame_count += 1
-        now = time.time()
-        if now - last_logged > 1:
-            print(f"{frame_count / (now-last_logged)} fps")
-            last_logged = now
-            frame_count = 0
+        # Display the resulting frame
+        cv2.imshow('Video Test', image)
+
+        key = cv2.waitKey(1) & 0xFF
+
+        # Press 'q' key to break the loop
+        if key == ord("q"):
+            break
+
+    # When everything done, release the capture
+    cam.release()
+    cv2.destroyAllWindows()
