@@ -17,6 +17,9 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
+with open("imagenet_classes.txt", "r") as f:
+    classes = [s.strip() for s in f.readlines()]
+
 net = models.quantization.mobilenet_v2(weights=MobileNet_V2_QuantizedWeights.IMAGENET1K_QNNPACK_V1, quantize=True)
 
 with torch.no_grad():
