@@ -11,6 +11,8 @@ from PIL import Image
 torch.backends.quantized.engine = 'qnnpack'
 
 cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+if not cap:
+    print("!!! Failed VideoCapture: unable to open device 0")
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 224)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 224)
 cap.set(cv2.CAP_PROP_FPS, 36)
