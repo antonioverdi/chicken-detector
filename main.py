@@ -8,6 +8,7 @@ from torchvision.models.quantization import MobileNet_V2_QuantizedWeights
 import cv2
 from PIL import Image
 
+print("Imports Done")
 torch.backends.quantized.engine = 'qnnpack'
 
 cam = cv2.VideoCapture(0)
@@ -18,11 +19,12 @@ preprocess = transforms.Compose([
 ])
 
 net = models.quantization.mobilenet_v2(weights=MobileNet_V2_QuantizedWeights.IMAGENET1K_QNNPACK_V1, quantize=True)
-# jit model to take it from ~20fps to ~30fps
-net = torch.jit.script(net)
+
+print("Cam and Model initialized")
 
 with torch.no_grad():
     while True:
+        print("Entering True Loop")
         # read frame
         ret, image = cam.read()
         if not ret:
