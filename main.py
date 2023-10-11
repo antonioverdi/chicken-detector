@@ -3,7 +3,7 @@ import time
 import torch
 import numpy as np
 from torchvision import models, transforms
-from torchvision.models import MobileNet_V2_QuantizedWeights
+from torchvision.models.quantization import MobileNet_V2_QuantizedWeights
 
 import cv2
 from PIL import Image
