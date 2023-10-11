@@ -23,6 +23,9 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
+
+targets = {'hen', 'cock'}
+
 # ---------------------------------------
 # Main Loop
 # ---------------------------------------
@@ -47,8 +50,13 @@ with torch.no_grad():
 
         # Show top categories per image
         top5_prob, top5_catid = torch.topk(probabilities, 5)
+        detected = {}
         for i in range(top5_prob.size(0)):
-            print(categories[top5_catid[i]], top5_prob[i].item())
+            detected.add(categories[top5_catid[i]])
+        
+        if len(detected.intersection(targets)) > 0:
+            print("Chicken Detected")
+            # Execute door control stuff
 
         # Display the resulting frame
         cv2.imshow('Video Test', image)
