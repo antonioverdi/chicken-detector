@@ -19,14 +19,19 @@ GPIO.setup(hall2,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.output(in1,GPIO.LOW)
 GPIO.output(in2,GPIO.LOW)
 p=GPIO.PWM(en,1000)
+p.start(25)
 
 
 #This function will be called if a change is detected
 def change_detected(channel):
     if GPIO.input(hall1) == GPIO.LOW:
         print('Magnetic material detected')
+        GPIO.output(in1,GPIO.HIGH)
+        GPIO.output(in2,GPIO.LOW)
     else:
         print('No magnetic material')
+        GPIO.output(in1,GPIO.LOW)
+        GPIO.output(in2,GPIO.LOW)
 
 # Register event-listener on falling and raising
 # edge on HALL-sensor input. Call "change_detected" as
