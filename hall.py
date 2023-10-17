@@ -95,8 +95,10 @@ try:
         if(GPIO.input(hall1) == False):
             door_up()
             print("magnet detected")
+            print(hall1)
         else:
             door_stop()
+            print(hall1)
             print("magnetic field not detected")
 
 # Quit on Ctrl-c
