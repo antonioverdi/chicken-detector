@@ -6,29 +6,6 @@ from torchvision import transforms
 import cv2
 
 # ---------------------------------------
-# Initializing GPIO 
-# ---------------------------------------
-
-in1 = 24
-in2 = 23
-en = 25
-temp1 = 1
-hall1 = 6
-hall2 = 5
-
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(in1,GPIO.OUT)
-GPIO.setup(in2,GPIO.OUT)
-GPIO.setup(en,GPIO.OUT)
-GPIO.setup(hall1,GPIO.IN) 
-GPIO.setup(hall2,GPIO.IN) 
-GPIO.output(in1,GPIO.LOW)
-GPIO.output(in2,GPIO.LOW)
-p=GPIO.PWM(en,1000)
-p.start(25)
-
-# ---------------------------------------
 # Initializing model and webcam 
 # ---------------------------------------
 cam = cv2.VideoCapture(0)
