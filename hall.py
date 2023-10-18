@@ -97,8 +97,28 @@ def safe_kill():
 
 # DOOR OPERATING CODE
 def run_door():
+    in1 = 24
+    in2 = 23
+    en = 25
+    temp1 = 1
+    hall1 = 6
+    hall2 = 5
+
+
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(in1,GPIO.OUT)
+    GPIO.setup(in2,GPIO.OUT)
+    GPIO.setup(en,GPIO.OUT)
+    GPIO.setup(hall1,GPIO.IN) 
+    GPIO.setup(hall2,GPIO.IN) 
+    GPIO.output(in1,GPIO.LOW)
+    GPIO.output(in2,GPIO.LOW)
+    p=GPIO.PWM(en,1000)
+    p.start(25)
     BottomHall=GPIO.input(5)
     TopHall=GPIO.input(6)
+
+
     if BottomHall==0:print('Door is locked')
     if TopHall==0:print('Door is open')
     if BottomHall==0: #Door is locked
@@ -109,6 +129,7 @@ def run_door():
                     TopHall=GPIO.input(6)
             if TopHall==0:
                     print('Door is open!')
+                    safe_kill()
     elif TopHall==0: #Door is open
             print('The door is open!')
             print('The door is going down!')
@@ -117,6 +138,7 @@ def run_door():
                     BottomHall=GPIO.input(5)
             if BottomHall==0:
                     print('Door is locked!')
+                    safe_kill()
 
 
 with torch.no_grad():
