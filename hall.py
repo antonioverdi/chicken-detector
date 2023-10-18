@@ -141,7 +141,7 @@ with torch.no_grad():
 
         # Show top categories per image
         top5_prob, top5_catid = torch.topk(probabilities, 5)
-        detected = {}
+        detected = set()
         for i in range(top5_prob.size(0)):
             detected.add(categories[top5_catid[i]])
         
