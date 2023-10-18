@@ -97,6 +97,7 @@ def safe_kill():
 
 # DOOR OPERATING CODE
 def run_door():
+    GPIO.setmode(GPIO.BCM)
     BottomHall=GPIO.input(5)
     TopHall=GPIO.input(6)
     if BottomHall==0:print('Door is locked')
