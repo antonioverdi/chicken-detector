@@ -87,28 +87,41 @@ def chicken_detected(cam, preprocess, model, targets):
     if len(detected.intersection(targets)) > 0:
         return True
 
+def safe_kill():
+        print('Performing safe shutoff!')
+        GPIO.output(in1,False)
+        GPIO.output(in2,False)
+        GPIO.cleanup()
+
 
 
 # DOOR OPERATING CODE
 
-try:
-    while True:
-        if(GPIO.input(hall1) == True):
-            door_up()
-            print("magnet detected")
-            print(hall1)
-        else:
-            door_stop()
-            print(hall1)
-            print("magnetic field not detected")
+BottomHall=GPIO.input(5)
+TopHall=GPIO.input(6)
+if BottomHall==0:print('Door is locked')
+if TopHall==0:print('Door is open')
+if BottomHall==0: #Door is locked
+		print('The door is locked!')
+		print('The door is going up!')
+		while TopHall==1:
+				door_up()
+				TopHall=GPIO.input(6)
+		if TopHall==0:
+				print('Door is open!')
+				safe_kill()
+elif TopHall==0: #Door is open
+		print('The door is open!')
+		print('The door is going down!')
+		while BottomHall==1:
+				door_down()
+				BottomHall=GPIO.input(5)
+		if BottomHall==0:
+				print('Door is locked!')
+				safe_kill()
 
-# Quit on Ctrl-c
-except KeyboardInterrupt:
-    print("Ctrl-C - quit")
 
-# Cleanup GPIO and release cam
-finally:
-    GPIO.cleanup() 
+safe_kill()
 
 # When everything done, release the capture
 cam.release()
