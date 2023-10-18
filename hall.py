@@ -101,6 +101,8 @@ def run_door():
     TopHall=GPIO.input(6)
     if BottomHall==0:print('Door is locked')
     if TopHall==0:print('Door is open')
+    if BottomHall==1:print('bottom 1')
+    if TopHall==1:print('top 1')
     if BottomHall==0: #Door is locked
             print('The door is locked!')
             print('The door is going up!')
@@ -109,6 +111,7 @@ def run_door():
                     TopHall=GPIO.input(6)
             if TopHall==0:
                     print('Door is open!')
+                    door_stop()
     elif TopHall==0: #Door is open
             print('The door is open!')
             print('The door is going down!')
@@ -117,6 +120,7 @@ def run_door():
                     BottomHall=GPIO.input(5)
             if BottomHall==0:
                     print('Door is locked!')
+                    door_stop()
 
 
 with torch.no_grad():
