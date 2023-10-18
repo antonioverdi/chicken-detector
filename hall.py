@@ -104,7 +104,7 @@ try:
 """
 
 try:
-    while GPIO.input(hall1) == False and GPIO.input(hall1) == True:
+    while GPIO.input(hall1) == False and GPIO.input(hall2) == True:
         door_up()
 
 # Quit on Ctrl-c
