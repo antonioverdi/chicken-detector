@@ -90,7 +90,7 @@ def chicken_detected(cam, preprocess, model, targets):
 
 
 # DOOR OPERATING CODE
-"""
+
 try:
     while True:
         if(GPIO.input(hall1) == False):
@@ -101,11 +101,6 @@ try:
             door_stop()
             print(hall1)
             print("magnetic field not detected")
-"""
-
-try:
-    while GPIO.input(hall1) == False and GPIO.input(hall2) == True:
-        door_up()
 
 # Quit on Ctrl-c
 except KeyboardInterrupt:
