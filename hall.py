@@ -93,7 +93,7 @@ def chicken_detected(cam, preprocess, model, targets):
 
 try:
     while True:
-        if(GPIO.input(hall1) == False):
+        if(GPIO.input(hall1) == True):
             door_up()
             print("magnet detected")
             print(hall1)
