@@ -21,8 +21,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(in1,GPIO.OUT)
 GPIO.setup(in2,GPIO.OUT)
 GPIO.setup(en,GPIO.OUT)
-#GPIO.setup(hall1,GPIO.IN) 
-#GPIO.setup(hall2,GPIO.IN) 
+GPIO.setup(hall1,GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+GPIO.setup(hall2,GPIO.IN, pull_up_down=GPIO.PUD_UP) 
 GPIO.output(in1,GPIO.LOW)
 GPIO.output(in2,GPIO.LOW)
 p=GPIO.PWM(en,1000)
@@ -97,9 +97,6 @@ def safe_kill():
 
 # DOOR OPERATING CODE
 def run_door():
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(hall1,GPIO.IN) 
-    GPIO.setup(hall2,GPIO.IN) 
     BottomHall=GPIO.input(5)
     TopHall=GPIO.input(6)
     if BottomHall==0:print('Door is locked')
