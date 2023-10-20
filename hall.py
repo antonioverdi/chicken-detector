@@ -130,9 +130,9 @@ with torch.no_grad():
                     print('The door is locked!')
                     print('The door is going up!')
                     while TopReed==0:
-                            #TopReed=GPIO.input(topreed)
                             GPIO.output(in1,GPIO.HIGH)
                             GPIO.output(in2,GPIO.LOW)
+                            TopReed=GPIO.input(topreed)
                     if TopReed==1:
                             print('Door is open!')
                             GPIO.output(in1,GPIO.LOW)
@@ -143,7 +143,7 @@ with torch.no_grad():
                     while BottomReed==0:
                             GPIO.output(in1,GPIO.LOW)
                             GPIO.output(in2,GPIO.HIGH)
-                            #BottomReed=GPIO.input(bottomreed)
+                            BottomReed=GPIO.input(bottomreed)
                     if BottomReed==1:
                             print('Door is locked!')
                             GPIO.output(in1,GPIO.LOW)
