@@ -6,18 +6,16 @@ bottomreed=6
 
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(topreed, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
-GPIO.setup(bottomreed, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+GPIO.setup(topreed, GPIO.IN) 
+GPIO.setup(bottomreed, GPIO.IN) 
 
 
-if topreed==1:
+if topreed:
     print("topreed 1")
-
-if topreed==0:
+else:
     print("topreed 0")
 
-if bottomreed==1:
+if bottomreed:
     print("bottomreed 1")
-
-if bottomreed==0:
+else:
     print("bottomread 0")
