@@ -151,7 +151,15 @@ with torch.no_grad():
                     while BottomReed==0:
                             GPIO.output(in2,GPIO.LOW)
                             GPIO.output(in1,GPIO.HIGH)
+                            if GPIO.input(6):
+                                print("bottomreed 1")
+                            else:
+                                print("bottomread 0")
                             BottomReed=GPIO.input(6)
+                            if GPIO.input(6):
+                                print("bottomreed 1")
+                            else:
+                                print("bottomread 0")
                     if BottomReed==1:
                             print('Door is locked!')
                             GPIO.output(in2,GPIO.LOW)
