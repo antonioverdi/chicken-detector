@@ -21,8 +21,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(in1,GPIO.OUT)
 GPIO.setup(in2,GPIO.OUT)
 GPIO.setup(en,GPIO.OUT)
-GPIO.setup(topreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
-GPIO.setup(bottomreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
+#GPIO.setup(topreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
+#GPIO.setup(bottomreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
+GPIO.setup(topreed, GPIO.IN) 
+GPIO.setup(bottomreed, GPIO.IN) 
 GPIO.output(in1,GPIO.LOW)
 GPIO.output(in2,GPIO.LOW)
 p=GPIO.PWM(en,1000)
@@ -94,33 +96,6 @@ def safe_kill():
         GPIO.cleanup()
 
 
-
-# DOOR OPERATING CODE
-def run_door():
-    BottomReed=GPIO.input(bottomreed)
-    TopReed=GPIO.input(topreed)
-    if BottomReed==1:print('Door is locked')
-    if TopReed==1:print('Door is open')
-    if BottomReed==1: #Door is locked
-            print('The door is locked!')
-            print('The door is going up!')
-            while TopReed==0:
-                    door_up()
-                    #TopReed=GPIO.input(topreed)
-            if TopReed==1:
-                    print('Door is open!')
-                    door_stop()
-    elif TopReed==1: #Door is open
-            print('The door is open!')
-            print('The door is going down!')
-            while BottomReed==0:
-                    door_down()
-                    #BottomReed=GPIO.input(bottomreed)
-            if BottomReed==1:
-                    print('Door is locked!')
-                    door_stop()
-
-
 with torch.no_grad():
     while True:
         # Read frame in from webcam
@@ -155,20 +130,24 @@ with torch.no_grad():
                     print('The door is locked!')
                     print('The door is going up!')
                     while TopReed==0:
-                            door_up()
-                            TopReed=GPIO.input(topreed)
+                            #TopReed=GPIO.input(topreed)
+                            GPIO.output(in1,GPIO.HIGH)
+                            GPIO.output(in2,GPIO.LOW)
                     if TopReed==1:
                             print('Door is open!')
-                            door_stop()
+                            GPIO.output(in1,GPIO.LOW)
+                            GPIO.output(in2,GPIO.LOW)
             elif TopReed==1: #Door is open
                     print('The door is open!')
                     print('The door is going down!')
                     while BottomReed==0:
-                            door_down()
-                            BottomReed=GPIO.input(bottomreed)
+                            GPIO.output(in1,GPIO.LOW)
+                            GPIO.output(in2,GPIO.HIGH)
+                            #BottomReed=GPIO.input(bottomreed)
                     if BottomReed==1:
                             print('Door is locked!')
-                            door_stop()
+                            GPIO.output(in1,GPIO.LOW)
+                            GPIO.output(in2,GPIO.LOW)
 
         # Display the resulting frame
         cv2.imshow('Video Test', image)
