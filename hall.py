@@ -111,7 +111,7 @@ def run_door():
                     print('Door is open!')
                     door_stop()
                     GPIO.cleanup()
-    elif TopReed==0: #Door is open
+    elif TopReed==1: #Door is open
             print('The door is open!')
             print('The door is going down!')
             while BottomReed==0:
