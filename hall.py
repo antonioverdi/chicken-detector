@@ -149,6 +149,7 @@ with torch.no_grad():
         
         if len(detected.intersection(targets)) > 0:
             print("Chicken Detected")
+            GPIO.setmode(GPIO.BCM)
             BottomReed=GPIO.input(5)
             TopReed=GPIO.input(6)
             if BottomReed==1:print('Door is locked')
