@@ -13,16 +13,16 @@ in1 = 24
 in2 = 23
 en = 25
 temp1 = 1
-hall1 = 6
-hall2 = 5
+topreed=5
+bottomreed=6
 
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(in1,GPIO.OUT)
 GPIO.setup(in2,GPIO.OUT)
 GPIO.setup(en,GPIO.OUT)
-GPIO.setup(hall1,GPIO.IN, pull_up_down=GPIO.PUD_UP) 
-GPIO.setup(hall2,GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+GPIO.setup(topreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
+GPIO.setup(bottomreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
 GPIO.output(in1,GPIO.LOW)
 GPIO.output(in2,GPIO.LOW)
 p=GPIO.PWM(en,1000)
@@ -97,29 +97,27 @@ def safe_kill():
 
 # DOOR OPERATING CODE
 def run_door():
-    BottomHall=GPIO.input(5)
-    TopHall=GPIO.input(6)
-    if BottomHall==0:print('Door is locked')
-    if TopHall==0:print('Door is open')
-    if BottomHall==1:print('bottom 1')
-    if TopHall==1:print('top 1')
-    if BottomHall==0: #Door is locked
+    BottomReed=GPIO.input(5)
+    TopReed=GPIO.input(6)
+    if BottomReed==0:print('Door is locked')
+    if TopReed==0:print('Door is open')
+    if BottomReed==0: #Door is locked
             print('The door is locked!')
             print('The door is going up!')
-            while TopHall==1:
+            while TopReed==1:
                     door_up()
-                    TopHall=GPIO.input(6)
-            if TopHall==0:
+                    TopReed=GPIO.input(6)
+            if TopReed==0:
                     print('Door is open!')
                     door_stop()
                     GPIO.cleanup()
-    elif TopHall==0: #Door is open
+    elif TopReed==0: #Door is open
             print('The door is open!')
             print('The door is going down!')
-            while BottomHall==1:
+            while BottomReed==1:
                     door_down()
-                    BottomHall=GPIO.input(5)
-            if BottomHall==0:
+                    BottomReed=GPIO.input(5)
+            if BottomReed==0:
                     print('Door is locked!')
                     door_stop()
                     GPIO.cleanup()
