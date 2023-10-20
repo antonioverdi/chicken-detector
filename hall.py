@@ -106,7 +106,7 @@ def run_door():
             print('The door is going up!')
             while TopReed==0:
                     door_up()
-                    TopReed=GPIO.input(topreed)
+                    #TopReed=GPIO.input(topreed)
             if TopReed==1:
                     print('Door is open!')
                     door_stop()
@@ -115,7 +115,7 @@ def run_door():
             print('The door is going down!')
             while BottomReed==0:
                     door_down()
-                    BottomReed=GPIO.input(bottomreed)
+                    #BottomReed=GPIO.input(bottomreed)
             if BottomReed==1:
                     print('Door is locked!')
                     door_stop()
@@ -160,7 +160,6 @@ with torch.no_grad():
                     if TopReed==1:
                             print('Door is open!')
                             door_stop()
-                            GPIO.cleanup()
             elif TopReed==1: #Door is open
                     print('The door is open!')
                     print('The door is going down!')
@@ -170,7 +169,6 @@ with torch.no_grad():
                     if BottomReed==1:
                             print('Door is locked!')
                             door_stop()
-                            GPIO.cleanup()
 
         # Display the resulting frame
         cv2.imshow('Video Test', image)
