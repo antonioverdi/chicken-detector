@@ -132,7 +132,15 @@ with torch.no_grad():
                     while TopReed==0:
                             GPIO.output(in2,GPIO.HIGH)
                             GPIO.output(in1,GPIO.LOW)
+                            if GPIO.input(5):
+                                print("topreed 1")
+                            else:
+                                print("topreed 0")
                             TopReed=GPIO.input(5)
+                            if GPIO.input(5):
+                                print("topreed 1")
+                            else:
+                                print("topreed 0")
                     if TopReed==1:
                             print('Door is open!')
                             GPIO.output(in2,GPIO.LOW)
