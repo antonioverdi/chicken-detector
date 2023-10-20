@@ -6,8 +6,8 @@ bottomreed=6
 
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(topreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
-GPIO.setup(bottomreed, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
+GPIO.setup(topreed, GPIO.IN) 
+GPIO.setup(bottomreed, GPIO.IN) 
 
 while True:
     if GPIO.input(5):
