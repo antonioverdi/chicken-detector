@@ -110,7 +110,6 @@ def run_door():
             if TopReed==1:
                     print('Door is open!')
                     door_stop()
-                    GPIO.cleanup()
     elif TopReed==1: #Door is open
             print('The door is open!')
             print('The door is going down!')
@@ -120,7 +119,6 @@ def run_door():
             if BottomReed==1:
                     print('Door is locked!')
                     door_stop()
-                    GPIO.cleanup()
 
 
 with torch.no_grad():
