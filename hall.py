@@ -122,29 +122,29 @@ with torch.no_grad():
         
         if len(detected.intersection(targets)) > 0:
             print("Chicken Detected")
-            BottomReed=GPIO.input(bottomreed)
-            TopReed=GPIO.input(topreed)
+            BottomReed=GPIO.input(6)
+            TopReed=GPIO.input(5)
             if BottomReed==1:print('Door is locked')
             if TopReed==1:print('Door is open')
             if BottomReed==1: #Door is locked
                     print('The door is locked!')
                     print('The door is going up!')
-                    while not TopReed:
+                    while TopReed==0:
                             GPIO.output(in2,GPIO.HIGH)
                             GPIO.output(in1,GPIO.LOW)
-                            TopReed=GPIO.input(topreed)
-                    if TopReed:
+                            #TopReed=GPIO.input(5)
+                    if TopReed==1:
                             print('Door is open!')
                             GPIO.output(in2,GPIO.LOW)
                             GPIO.output(in1,GPIO.LOW)
             elif TopReed==1: #Door is open
                     print('The door is open!')
                     print('The door is going down!')
-                    while not BottomReed:
+                    while BottomReed==0:
                             GPIO.output(in2,GPIO.LOW)
                             GPIO.output(in1,GPIO.HIGH)
-                            BottomReed=GPIO.input(bottomreed)
-                    if BottomReed:
+                            #BottomReed=GPIO.input(6)
+                    if BottomReed==1:
                             print('Door is locked!')
                             GPIO.output(in2,GPIO.LOW)
                             GPIO.output(in1,GPIO.LOW)
