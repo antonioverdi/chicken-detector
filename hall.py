@@ -97,8 +97,8 @@ def safe_kill():
 
 # DOOR OPERATING CODE
 def run_door():
-    BottomReed=GPIO.input(5)
-    TopReed=GPIO.input(6)
+    BottomReed=GPIO.input(bottomreed)
+    TopReed=GPIO.input(topreed)
     if BottomReed==1:print('Door is locked')
     if TopReed==1:print('Door is open')
     if BottomReed==1: #Door is locked
@@ -106,7 +106,7 @@ def run_door():
             print('The door is going up!')
             while TopReed==0:
                     door_up()
-                    TopReed=GPIO.input(6)
+                    TopReed=GPIO.input(topreed)
             if TopReed==1:
                     print('Door is open!')
                     door_stop()
@@ -116,7 +116,7 @@ def run_door():
             print('The door is going down!')
             while BottomReed==0:
                     door_down()
-                    BottomReed=GPIO.input(5)
+                    BottomReed=GPIO.input(bottomreed)
             if BottomReed==1:
                     print('Door is locked!')
                     door_stop()
@@ -149,9 +149,8 @@ with torch.no_grad():
         
         if len(detected.intersection(targets)) > 0:
             print("Chicken Detected")
-            GPIO.setmode(GPIO.BCM)
-            BottomReed=GPIO.input(5)
-            TopReed=GPIO.input(6)
+            BottomReed=GPIO.input(bottomreed)
+            TopReed=GPIO.input(topreed)
             if BottomReed==1:print('Door is locked')
             if TopReed==1:print('Door is open')
             if BottomReed==1: #Door is locked
@@ -159,7 +158,7 @@ with torch.no_grad():
                     print('The door is going up!')
                     while TopReed==0:
                             door_up()
-                            TopReed=GPIO.input(6)
+                            TopReed=GPIO.input(topreed)
                     if TopReed==1:
                             print('Door is open!')
                             door_stop()
@@ -169,7 +168,7 @@ with torch.no_grad():
                     print('The door is going down!')
                     while BottomReed==0:
                             door_down()
-                            BottomReed=GPIO.input(5)
+                            BottomReed=GPIO.input(bottomreed)
                     if BottomReed==1:
                             print('Door is locked!')
                             door_stop()
